@@ -2,112 +2,177 @@
 #include<stdlib.h>
 
 
-struct node{
-      int data;
-      struct node *link;
+struct node {
+    int data;
+    struct node *link;
 };
 
-void display(struct node *head){
+void display(struct node *head) {
 
     struct node *ptr;
     ptr=head;
-    
-    while(ptr!=NULL){
-    
-      printf("%d  ",ptr->data);
-      ptr=ptr->link;
-    
+
+    while(ptr!=NULL) {
+
+        printf("%d  ",ptr->data);
+        ptr=ptr->link;
+
     }
 
 }
-void add_at_beginning(struct node **head,int data){
+struct node* add_at_beginning(struct node *head,int data) {
 
-     struct node *temp;
-     temp=malloc(sizeof(struct node*));
-     temp->data=data;
-     temp->link=*head;
-     *head=temp;
- 
+    struct node *temp;
+    temp=malloc(sizeof(struct node));
+    temp->data=data;
+    temp->link=NULL;
+    temp->link=head;
+    head=temp;
+    return head;
 }
+struct node* delete_at_beginning(struct node *head) {
 
-void add_at_position(struct node *head,int data,int pos){
+    struct node *temp;
 
-     struct node *ptr,*temp;
-     ptr=head;
-     temp=malloc(sizeof(struct node*));
-     temp->data=data;
-     temp->link=NULL;
-     
-     while(pos-2>0){
-         
-         ptr=ptr->link;
-         pos--;
-     }
-     temp->link=ptr->link;
-     ptr->link=temp;
- 
+    temp=head;
+    head=head->link;
+    free(temp);
+    temp=NULL;
+    return head;
 }
+void add_at_position(struct node *head, int data, int pos) {
 
-void add_at_end(struct node *head,int data){
+    struct node *ptr,*temp;
+    ptr=head;
+    temp=malloc(sizeof(struct node));
+    temp->data=data;
+    temp->link=NULL;
+    pos--;
 
-     struct node *ptr,*temp;
-     ptr=head;
-     temp=malloc(sizeof(struct node*));
-     temp->data=data;
-     temp->link=NULL;
-     while(ptr->link!=NULL){
+    while(pos!=1) {
+
+        ptr=ptr->link;
+        pos--;
+    }
+    temp->link=ptr->link;
+    ptr->link=temp;
+
+}
+struct node* delete_at_position(struct node *head, int pos) {
+
+    struct node *ptr,*temp;
+    ptr=head;
+    temp=head;
+       if(head==NULL) {
+        printf("List is already empty");
+    }
+    else if(head->link==NULL) {
+        free(head);
+        head=NULL;
+    }
+ 
+
+    while(pos!=1) {
+
+        ptr=temp;
+        temp=temp->link;
+        pos--;
+    }
+    ptr->link=temp->link;
+    free(temp) ;
+    return head;
+
+}
+void add_at_end(struct node *head,int data) {
+
+    struct node *ptr,*temp;
+    ptr=head;
+    temp=malloc(sizeof(struct node));
+    temp->data=data;
+    temp->link=NULL;
+    while(ptr->link!=NULL) {
+
+        ptr=ptr->link;
+    }
+
+    ptr->link=temp;
+
+}
+struct node* delete_at_end(struct node *head) {
+
+    
+    if(head==NULL) {
+        printf("List is already empty");
+    }
+    else if(head->link==NULL) {
+        free(head);
+        head=NULL;
+    }
+
+    else {
+        struct node *temp=head;
+        struct node *ptr=head ;
+        while(temp->link!=NULL) {
+            ptr=temp;
+            temp=temp->link;
+
+        }
+        ptr->link=NULL;
         
-         ptr=ptr->link;
-     }
-     
-     ptr->link=temp;
- 
+        free(temp) ;
+        temp=NULL;
+        
+
+    }
+    return head;
 }
 
-int count_nodes(struct node *head){
+int count_nodes(struct node *head) {
 
     struct node *ptr;
     ptr=head;
     int count=0;
-    while(ptr!=NULL){
-         ptr=ptr->link;
-         count++;
-               
- 
+    while(ptr!=NULL) {
+        ptr=ptr->link;
+        count++;
+
+
     }
- return count;
- 
- }
+    return count;
+
+}
 
 int main()
-{ 
-  int size;
-  struct node *head;
-  head=malloc(sizeof(struct node*));
-  head->data=10;
-  head->link=NULL;
-  struct node *current;
-  current=malloc(sizeof(struct node*));
-  
-  current->data=20;
-  current->link=NULL;
-  
-  head->link=current;
-  
-  current=malloc(sizeof(struct node*));
-  
-  current->data=30;
-  current->link=NULL;
-  
-  head->link->link=current;
-  
-  //add_at_beginning(&head,5);
-  add_at_position(head,60,2);
-  //add_at_end(head,40);
-  
-  display(head);
-  size=count_nodes(head);
-  
-  printf("\nNo of nodes:%d",size);
-  return 0;
+{
+    int size;
+    struct node *head;
+    head=malloc(sizeof(struct node));
+    head->data=10;
+    head->link=NULL;
+    struct node *current;
+    current=malloc(sizeof(struct node));
+
+    current->data=20;
+    current->link=NULL;
+
+    head->link=current;
+
+    current=malloc(sizeof(struct node));
+
+    current->data=30;
+    current->link=NULL;
+
+    head->link->link=current;
+
+// head=add_at_beginning(head,5);
+   // add_at_position(head,70,4);
+    //add_at_end(head,40);
+//head= delete_at_beginning(head) ;
+    //delete_at_end(head) ;
+    head=delete_at_position(head, 2) ;
+    display(head);
+    size=count_nodes(head);
+
+    printf("\nNo of nodes:%d",size);
+    return 0;
 }
