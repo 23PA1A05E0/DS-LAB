@@ -12,7 +12,7 @@ struct node* delete_at_position(struct node *head, int pos);
 struct node* delete_at_end(struct node *head) ;
 int search(struct node *head, int key);
 struct node* insert_at_after_position_(struct node *head, int data, int pos) ;
-
+void RemoveDuplicate(struct node *head);
 
 struct node {
     int data;
@@ -220,7 +220,24 @@ int search(struct node *head, int key) {
 
     }
 }
-
+void RemoveDuplicate(struct node *head)
+{
+    struct node *ptr = head->next;void RemoveDuplicate(struct node *head)
+    while (ptr!=NULL)
+    {
+        if (head->data!=ptr->data)
+        {
+            head=ptr;
+            ptr=ptr->next;
+        }
+        else
+       {
+            head->next = ptr->next;
+            free(ptr);
+             ptr=head->next;
+       }
+    }
+}
 
 
 
