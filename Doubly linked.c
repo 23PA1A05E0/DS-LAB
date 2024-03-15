@@ -46,7 +46,7 @@ int count_nodes(struct node* head) {
 
 struct node* insert_at_beginning(struct node *head, int data) {
     struct node *ptr;
-    ptr=malloc(sizeof(struct node)) ;
+    ptr=mall,oc(sizeof(struct node)) ;
     ptr->prev=NULL;
     ptr->data=data;
     ptr->next=NULL;
@@ -204,7 +204,7 @@ int search(struct node *head, int key) {
     struct node *ptr, *temp;
     temp=(struct node*)malloc(sizeof(struct node*)) ;
     ptr=head;
-    int node, pos;
+    int node=0, pos;
     while(ptr!=NULL) {
         if(ptr->data==key) {
             temp=ptr;
