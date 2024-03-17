@@ -40,47 +40,72 @@ struct node* delete_at_beginning(struct node *head) {
     temp=NULL;
     return head;
 }
-void add_at_position(struct node *head, int data, int pos) {
+struct node* add_at_position(struct node *head, int data, int pos) {
 
-    struct node *ptr,*temp;
-    ptr=head;
-    temp=malloc(sizeof(struct node));
-    temp->data=data;
-    temp->link=NULL;
-    pos--;
+    if(pos==1) {
 
-    while(pos!=1) {
+        head=add_at_beginning(head, data) ;
+        return head;
 
-        ptr=ptr->link;
-        pos--;
     }
-    temp->link=ptr->link;
-    ptr->link=temp;
 
+    else {
+        struct node *ptr,*temp;
+        ptr=head;
+        temp=malloc(sizeof(struct node));
+        temp->data=data;
+        temp->link=NULL;
+        pos--;
+
+        while(pos>1) {
+
+            ptr=ptr->link;
+            pos--;
+        }
+        temp->link=ptr->link;
+        ptr->link=temp;
+        head=ptr;
+        return head;
+
+    }
 }
+
+
+
 struct node* delete_at_position(struct node *head, int pos) {
 
     struct node *ptr,*temp;
     ptr=head;
     temp=head;
-       if(head==NULL) {
+    if(head==NULL) {
         printf("List is already empty");
     }
     else if(head->link==NULL) {
         free(head);
         head=NULL;
     }
- 
 
-    while(pos!=1) {
 
-        ptr=temp;
-        temp=temp->link;
-        pos--;
+    if(pos==1) {
+
+        head=delete_at_beginning(head) ;
+        return head;
+
     }
-    ptr->link=temp->link;
-    free(temp) ;
-    return head;
+
+    else {
+
+        while(pos!=1) {
+
+            ptr=temp;
+            temp=temp->link;
+            pos--;
+        }
+        ptr->link=temp->link;
+        free(temp) ;
+        return head;
+
+    }
 
 }
 void add_at_end(struct node *head,int data) {
@@ -100,7 +125,7 @@ void add_at_end(struct node *head,int data) {
 }
 struct node* delete_at_end(struct node *head) {
 
-    
+
     if(head==NULL) {
         printf("List is already empty");
     }
@@ -118,10 +143,10 @@ struct node* delete_at_end(struct node *head) {
 
         }
         ptr->link=NULL;
-        
+
         free(temp) ;
         temp=NULL;
-        
+
 
     }
     return head;
@@ -140,6 +165,27 @@ int count_nodes(struct node *head) {
     }
     return count;
 
+}
+
+int search(struct node *head, int key) {
+    struct node *ptr, *temp;
+    temp=(struct node*)malloc(sizeof(struct node*)) ;
+    ptr=head;
+    int node, pos;
+    while(ptr!=NULL) {
+        if(ptr->data==key) {
+            temp=ptr;
+          //  node=count_nodes(temp) ;
+            return node;
+        }
+        node++;
+        ptr=ptr->link;
+        
+    }
+    if(pos<=0) {
+        return -1;
+
+    }
 }
 
 int main()
@@ -164,15 +210,26 @@ int main()
 
     head->link->link=current;
 
-// head=add_at_beginning(head,5);
-   // add_at_position(head,70,4);
+    head=add_at_beginning(head,5);
+    //add_at_position(head,70,3);
     //add_at_end(head,40);
-//head= delete_at_beginning(head) ;
+    //head= delete_at_beginning(head) ;
     //delete_at_end(head) ;
-    head=delete_at_position(head, 2) ;
+    //  head=delete_at_position(head, 1) ;
     display(head);
     size=count_nodes(head);
-
     printf("\nNo of nodes:%d",size);
+    int key;
+    printf("\nenter the element to search:");
+    scanf("%d", &key);
+    int node=search(head, key);
+    if(node==-1) {
+        printf("Element is not found\n");
+    }
+    else {
+        printf("Element is found at %d", 1+node);
+
+    }
+
     return 0;
 }
