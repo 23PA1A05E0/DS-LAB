@@ -75,9 +75,12 @@ search (struct node *root, int key)
   if (key == root->data)
 	{
 	  printf ("\nKey is found\n");
-	  return 0;
+	  return 1;
 	}
-  else if (key < root->data || key > root->data)
+else{
+	return 0;
+} 
+   if (key < root->data || key > root->data)
 	{
 	  if (key < root->data)
 		{
