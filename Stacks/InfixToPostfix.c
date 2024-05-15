@@ -45,7 +45,7 @@ int main(void) {
         else if(check(ch))
             postfix[k++]=ch;
         else if(ch==')') {
-            while(stack[top]!='(')
+             while(stack[top]!='(')
             {
                 postfix[k++]=pop();
             }
