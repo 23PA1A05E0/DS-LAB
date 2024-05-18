@@ -41,13 +41,12 @@ int search(){
      else{
         for(c=head[i];c!=NULL;c=c->next){
            if(c->data==key){
-              printf("key is  found\n");
+              printf("key is  found at %d\n",i);
               break;
-           }
-           if(c==NULL)
-              printf("key is not found\n");
-        
-      }    
+	   }
+      }  
+      if(c==NULL)
+         printf("key is not found\n");  
    }
 }
 
@@ -102,3 +101,17 @@ int main(){
    
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
