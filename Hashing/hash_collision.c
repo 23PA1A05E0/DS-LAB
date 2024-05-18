@@ -21,7 +21,7 @@ void insert(){
      head[i]=Newnode;
   else{
      c=head[i];
-     while(c!=NULL){
+     while(c->next!=NULL){
        c=c->next;
     }
    c->next=Newnode;   
